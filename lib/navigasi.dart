@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'page2.dart';
 import 'page3.dart';
-import 'page4.dart';
 import 'page5.dart';
-import 'page6.dart';
+import 'api_demo_page.dart'; 
 
 class NavigasiUtama extends StatefulWidget {
   const NavigasiUtama({super.key});
@@ -16,18 +15,13 @@ class NavigasiUtama extends StatefulWidget {
 class _NavigasiUtamaState extends State<NavigasiUtama> {
   int _selectedIndex = 0;
 
+  // Daftar halaman setelah menu 'Usaha' dihapus (Total: 5 Halaman)
   final List<Widget> _pages = [ 
     const HomePage(),
     const Page2(),
     const Page3(),   
-    const Page4(),    
-    const MyApp(),         
-    Page6(
-  isPaid: true,
-  year: "2026",
-  address: "Jl. Contoh No.1",
-  name: "Wajib Pajak",
-),   
+    const MyApp(),        // Ini halaman Keliling kamu       
+    const ApiDemoPage(),  // Ini halaman API Demo
   ];
 
   void _onItemTapped(int index) {
@@ -43,10 +37,11 @@ class _NavigasiUtamaState extends State<NavigasiUtama> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[900],
+        selectedItemColor: const Color(0xFF003566), // Warna Navy agar senada dengan Login & Register
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         onTap: _onItemTapped,
+        // Daftar item navigasi setelah 'Usaha' dihapus (Total: 5 Item)
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -63,15 +58,12 @@ class _NavigasiUtamaState extends State<NavigasiUtama> {
             label: 'Kendaraan',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.storefront),
-            label: 'Usaha',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.directions_bus_outlined),
             label: 'Keliling',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cloud_queue),
+            activeIcon: Icon(Icons.cloud),
             label: 'API Demo',
           ),
         ],
