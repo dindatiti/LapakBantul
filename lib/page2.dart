@@ -12,13 +12,13 @@ class Page2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const Page2Home(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class Page2Home extends StatelessWidget {
+  const Page2Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // ✅ INI SUDAH AKU PERBAIKI (BISA DIKLIK)
   Widget _buildLayananBanner(BuildContext context) {
     return InkWell(
       onTap: () {
