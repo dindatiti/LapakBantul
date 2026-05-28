@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:lapakbantul/auth/login.dart';
 import 'package:lapakbantul/main.dart';
 
 void main() {
@@ -26,5 +27,20 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+  });
+
+  testWidgets('Login only accepts eve.holt@reqres.in', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: LoginPage(),
+      ),
+    );
+
+    await tester.enterText(find.byType(TextFormField).at(0), 'user@example.com');
+    await tester.enterText(find.byType(TextFormField).at(1), '123456');
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump();
+
+    expect(find.text('Email harus eve.holt@reqres.in'), findsOneWidget);
   });
 }

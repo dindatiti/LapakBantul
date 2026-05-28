@@ -14,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   final _passCtrl = TextEditingController();
   bool _obscure = true;
 
+  static const String _allowedEmail = 'eve.holt@reqres.in';
+
   void _login() {
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(
@@ -50,7 +52,16 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: _emailCtrl,
                   decoration: _inputDecor('Email', Icons.email_outlined),
-                  validator: (v) => (v == null || !v.contains('@')) ? 'Email tidak valid' : null,
+                  validator: (v) {
+                    final email = v?.trim() ?? '';
+                    if (email.isEmpty || !email.contains('@')) {
+                      return 'Email tidak valid';
+                    }
+                    if (email != _allowedEmail) {
+                      return 'Email harus eve.holt@reqres.in';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextFormField(

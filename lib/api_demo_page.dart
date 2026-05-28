@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'models/user_model.dart'; // Pastikan file user_model.dart sudah kamu buat di folder yang sama
+import '../models/user_model.dart'; // Jalur folder models sesuai instruksi gurumu
 
 class ApiDemoPage extends StatefulWidget {
   const ApiDemoPage({super.key});
@@ -11,26 +10,32 @@ class ApiDemoPage extends StatefulWidget {
 }
 
 class _ApiDemoPageState extends State<ApiDemoPage> {
-  // Fungsi untuk mengambil data dari REST API Reqres.in
-  Future<List<UserModel>> fetchUsers() async {
-    final response = await http.get(Uri.parse('https://reqres.in/api/users?page=1'));
+  // Fungsi simulasi mengambil data JSON lokal dengan link foto wajah asli dari Unsplash
+  Future<List<UserModel>> fetchLocalUsers() async {
+    await Future.delayed(const Duration(seconds: 1));
 
-    if (response.statusCode == 200) {
-      // Jika server mengembalikan respon 200 OK, extract datanya
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      final List<dynamic> usersJson = responseData['data'];
-      
-      // Ubah list JSON menjadi List Objek UserModel
-      return usersJson.map((json) => UserModel.fromJson(json)).toList();
-    } else {
-      // Jika gagal, lempar error
-      throw Exception('Gagal memuat data pengguna');
+    final String dummyJsonResponse = '''
+    {
+      "data": [
+        {"id": 1, "email": "george.bluth@reqres.in", "first_name": "George", "last_name": "Bluth", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150"},
+        {"id": 2, "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name": "Weaver", "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"},
+        {"id": 3, "email": "emma.wong@reqres.in", "first_name": "Emma", "last_name": "Wong", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150"},
+        {"id": 4, "email": "eve.holt@reqres.in", "first_name": "Eve", "last_name": "Holt", "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"},
+        {"id": 5, "email": "charles.morris@reqres.in", "first_name": "Charles", "last_name": "Morris", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"},
+        {"id": 6, "email": "tracey.ramos@reqres.in", "first_name": "Tracey", "last_name": "Ramos", "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
+      ]
     }
+    ''';
+
+    final Map<String, dynamic> responseData = json.decode(dummyJsonResponse);
+    final List<dynamic> usersJson = responseData['data'];
+    return usersJson.map((json) => UserModel.fromJson(json)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA), // Latar belakang abu-abu terang modern
       appBar: AppBar(
         title: const Text(
           'API Demo Pengguna', 
@@ -38,55 +43,73 @@ class _ApiDemoPageState extends State<ApiDemoPage> {
         ),
         backgroundColor: const Color(0xFF003566),
         elevation: 0,
-        automaticallyImplyLeading: false, // Menghilangkan tombol back otomatis di navbar utama
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<UserModel>>(
-        future: fetchUsers(), // Fungsi API yang dipanggil
+        future: fetchLocalUsers(),
         builder: (context, snapshot) {
-          // 1. Kondisi saat data sedang loading/diunduh
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(color: Color(0xFF003566)),
             );
           }
           
-          // 2. Kondisi jika terjadi error (misal tidak ada internet)
           if (snapshot.hasError) {
             return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  'Terjadi kesalahan: ${snapshot.error}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
+              child: Text('Terjadi kesalahan: ${snapshot.error}'),
             );
           }
 
-          // 3. Kondisi saat data berhasil didapatkan
           if (snapshot.hasData) {
             final users = snapshot.data!;
             
             return ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               itemCount: users.length,
               itemBuilder: (context, index) {
                 final user = users[index];
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  elevation: 2,
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
                   child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: const Color(0xFF003566).withOpacity(0.1),
-                      backgroundImage: NetworkImage(user.avatar), // Gambar avatar dari URL API
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    leading: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(user.avatar),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     title: Text(
                       '${user.firstName} ${user.lastName}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF003566)),
+                      style: const TextStyle(
+                        fontSize: 18, 
+                        fontWeight: FontWeight.bold, 
+                        color: Color(0xFF003566),
+                      ),
                     ),
-                    subtitle: Text(user.email, style: const TextStyle(color: Colors.grey)),
+                    // Bagian Subtitle yang sudah diperbaiki total dari error
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        user.email,
+                        style: const TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ),
                   ),
                 );
               },
