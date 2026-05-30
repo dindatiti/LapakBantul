@@ -15,7 +15,7 @@ class UserModel {
     required this.avatar,
   });
 
-  // Fungsi untuk mengubah data JSON dari internet menjadi Objek Dart
+  
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],

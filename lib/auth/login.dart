@@ -25,6 +25,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _loginWithGoogle() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login dengan Google sedang diproses...')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (v) => (v == null || v.length < 6) ? 'Min 6 karakter' : null,
                 ),
                 const SizedBox(height: 24),
+                
+                // Tombol Masuk Utama
                 SizedBox(
                   width: double.infinity, height: 52,
                   child: ElevatedButton(
@@ -88,6 +96,48 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text('Masuk', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                 ),
+                const SizedBox(height: 20),
+
+              
+                Row(
+                  children: [
+                    Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1)),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text('atau', style: TextStyle(color: Colors.grey, fontSize: 14)),
+                    ),
+                    Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1)),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+        
+                SizedBox(
+                  width: double.infinity, height: 52,
+                  child: OutlinedButton(
+                    onPressed: _loginWithGoogle,
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.grey.shade300, width: 1.5),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          'assets/images/google.png',
+                          height: 24, 
+                          width: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Masuk dengan Google',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                
                 const SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

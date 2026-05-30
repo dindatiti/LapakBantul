@@ -4,14 +4,14 @@ class Page6 extends StatelessWidget {
   final bool isPaid;
   final String year;
   final String address;
-  final String name; // 🔥 tambah
+  final String name; 
 
   const Page6({
     super.key,
     required this.isPaid,
     required this.year,
     required this.address,
-    required this.name, // 🔥 tambah
+    required this.name, 
   });
 
   @override
@@ -20,7 +20,7 @@ class Page6 extends StatelessWidget {
       isPaid: isPaid,
       year: year,
       address: address,
-      name: name, // 🔥 kirim
+      name: name, 
     );
   }
 }
@@ -29,14 +29,14 @@ class DetailPajakScreen extends StatelessWidget {
   final bool isPaid;
   final String year;
   final String address;
-  final String name; // 🔥 tambah
+  final String name; 
 
   const DetailPajakScreen({
     super.key,
     required this.isPaid,
     required this.year,
     required this.address,
-    required this.name, // 🔥 tambah
+    required this.name, 
   });
 
   @override
@@ -59,14 +59,14 @@ class DetailPajakScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🔥 pakai year
+            
             Text(
               'SPPT $year',
               style: const TextStyle(color: Colors.blueGrey, fontSize: 14),
             ),
             const SizedBox(height: 8),
 
-            // 🔥 pakai name (tidak hardcode lagi)
+            
             Text(
               name,
               style: const TextStyle(

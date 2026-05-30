@@ -53,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        // Menggunakan tombol back custom agar warnanya senada
+        
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF003566), size: 20),
           onPressed: () => Navigator.pop(context),
@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 16),
                 
-                // Field Konfirmasi Password
+            
                 TextFormField(
                   controller: _confirmPassCtrl,
                   obscureText: _obscureConfirm,
@@ -157,7 +157,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 24),
                 
-                // Footer Login
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

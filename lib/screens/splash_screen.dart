@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-  // Fungsi navigasi ke Login
+  
   void _navToLogin() {
     Navigator.pushReplacement(
       context,
@@ -129,7 +129,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Widget pendukung Splash tetap di bawah...
+
 class _SplashData {
   final String title; final String description; final IconData icon; final Color color;
   const _SplashData({required this.title, required this.description, required this.icon, required this.color});

@@ -92,7 +92,7 @@ class Page2Home extends StatelessWidget {
 
                         const SizedBox(height: 25),
 
-                        // ✅ SUDAH BISA DIKLIK
+                        
                         _buildLayananBanner(context),
 
                         const SizedBox(height: 30),

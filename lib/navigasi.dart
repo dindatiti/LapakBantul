@@ -15,13 +15,13 @@ class NavigasiUtama extends StatefulWidget {
 class _NavigasiUtamaState extends State<NavigasiUtama> {
   int _selectedIndex = 0;
 
-  // Daftar halaman setelah menu 'Usaha' dihapus (Total: 5 Halaman)
+  
   final List<Widget> _pages = [ 
     const HomePage(),
     const Page2(),
     const Page3(),   
-    const MyApp(),        // Ini halaman Keliling kamu       
-    const ApiDemoPage(),  // Ini halaman API Demo
+    const MyApp(),             
+    const ApiDemoPage(),  
   ];
 
   void _onItemTapped(int index) {
@@ -37,11 +37,11 @@ class _NavigasiUtamaState extends State<NavigasiUtama> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFF003566), // Warna Navy agar senada dengan Login & Register
+        selectedItemColor: const Color(0xFF003566), 
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         onTap: _onItemTapped,
-        // Daftar item navigasi setelah 'Usaha' dihapus (Total: 5 Item)
+        // Daftar item navigasi 
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

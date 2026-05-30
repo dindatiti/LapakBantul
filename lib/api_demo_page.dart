@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../models/user_model.dart'; // Jalur folder models sesuai instruksi gurumu
+import '../models/user_model.dart';
 
 class ApiDemoPage extends StatefulWidget {
   const ApiDemoPage({super.key});
@@ -10,7 +10,7 @@ class ApiDemoPage extends StatefulWidget {
 }
 
 class _ApiDemoPageState extends State<ApiDemoPage> {
-  // Fungsi simulasi mengambil data JSON lokal dengan link foto wajah asli dari Unsplash
+  
   Future<List<UserModel>> fetchLocalUsers() async {
     await Future.delayed(const Duration(seconds: 1));
 
@@ -35,7 +35,7 @@ class _ApiDemoPageState extends State<ApiDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA), // Latar belakang abu-abu terang modern
+      backgroundColor: const Color(0xFFF8F9FA), 
       appBar: AppBar(
         title: const Text(
           'API Demo Pengguna', 
@@ -102,7 +102,7 @@ class _ApiDemoPageState extends State<ApiDemoPage> {
                         color: Color(0xFF003566),
                       ),
                     ),
-                    // Bagian Subtitle yang sudah diperbaiki total dari error
+                    
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
