@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'register.dart'; 
-import '../navigasi.dart'; 
+import 'package:lapakbantul/google_auth_service.dart';
+import 'register.dart';
+import '../navigasi.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,7 +13,9 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
+  final GoogleAuthService _googleAuthService = GoogleAuthService();
   bool _obscure = true;
+  bool _isGoogleLoading = false;
 
   static const String _allowedEmail = 'eve.holt@reqres.in';
 
@@ -25,9 +28,30 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _loginWithGoogle() {
-    ScaffoldMessenger.of(context).showSnackBar(
+  Future<void> _loginWithGoogle() async {
+    if (!mounted) return;
+    setState(() => _isGoogleLoading = true);
+
+    final snackBar = ScaffoldMessenger.of(context);
+    snackBar.showSnackBar(
       const SnackBar(content: Text('Login dengan Google sedang diproses...')),
+    );
+
+    final user = await _googleAuthService.signInWithGoogle();
+    if (!mounted) return;
+
+    setState(() => _isGoogleLoading = false);
+
+    if (user == null) {
+      snackBar.showSnackBar(
+        const SnackBar(content: Text('Login Google gagal. Silakan coba lagi.')),
+      );
+      return;
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const NavigasiUtama()),
     );
   }
 
@@ -98,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
 
-              
                 Row(
                   children: [
                     Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1)),
@@ -111,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
 
-        
+                // Tombol Masuk dengan Google (Sudah Diperbaiki)
                 SizedBox(
                   width: double.infinity, height: 52,
                   child: OutlinedButton(
@@ -119,19 +142,28 @@ class _LoginPageState extends State<LoginPage> {
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: Colors.grey.shade300, width: 1.5),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.network(
-                          'assets/images/google.png',
-                          height: 24, 
+                        Image.asset(
+                          'assets/images/google.jpg',
+                          height: 24,
                           width: 24,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.g_mobiledata, color: Colors.red, size: 24);
+                          },
                         ),
                         const SizedBox(width: 12),
-                        const Text(
-                          'Masuk dengan Google',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
+                        Flexible(
+                          child: const Text(
+                            'Masuk dengan Google',
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
+                          ),
                         ),
                       ],
                     ),

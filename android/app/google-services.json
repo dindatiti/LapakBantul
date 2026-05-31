@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "467830004591",
+    "project_id": "lapakbantul-97649",
+    "storage_bucket": "lapakbantul-97649.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467830004591:android:257ca34a9804760763669a",
+        "android_client_info": {
+          "package_name": "com.example.lapakbantul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467830004591-7an7mjjpbjrsv8h809dsbbkonnf2sddl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lapakbantul",
+            "certificate_hash": "1e574c9fb205a3bbca46ab1d0bee8c89cac9a7b0"
+          }
+        },
+        {
+          "client_id": "467830004591-9h1jmh8epudgu9vs4m6jongf1c4kfpjs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0TBmYDTuxH9hNZLwcIun4AdrMmFMMjZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467830004591-9h1jmh8epudgu9vs4m6jongf1c4kfpjs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
